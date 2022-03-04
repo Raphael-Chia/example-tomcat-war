@@ -13,7 +13,8 @@ variables:
   imageRepository: 'rctomcatwar'
   containerRegistry: 'sampleproj.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  tag: '$(Build.BuildId)'
+  # tag: '$(Build.BuildId)'
+  tag: 31
 
 
   # Agent VM image name
@@ -31,34 +32,14 @@ stages:
     - job: I1J1
       displayName: Install Job1
       steps:
-      - task: DockerInstaller@0
-        inputs:
-          dockerVersion: '17.09.0-ce'
-      - script: |
-          sudo docker images
-      - task: Maven@3
-        inputs:
-          mavenPomFile: 'pom.xml'
-          publishJUnitResults: false
-          javaHomeOption: 'JDKVersion'
-          mavenVersionOption: 'Default'
-          mavenAuthenticateFeed: false
-          effectivePomSkip: false
-          sonarQubeRunAnalysis: false
-      - script: |
-          sudo docker login -u $(CR_USERNAME) -p $(CR_PASSWORD) $(CR_SERVER)
-          sudo docker build -t $(CR_SERVER)/firstapp:v1.0.$(tag) .
-          sudo docker push $(CR_SERVER)/firstapp:v1.0.$(tag)
-          sudo docker images
-        
+
       - task: SSH@0
         inputs:
           sshEndpoint: 'ubuntuPrivateTesting'
           runOptions: 'commands'
-          commands: |
+          inline: |
             echo -e "sudo docker login -u $(CR_USERNAME) -p $(CR_PASSWORD) $(CR_SERVER)\n \
             sudo docker pull $(CR_SERVER)/firstapp:v1.0.$(tag)\n \
             sudo docker run -d --name releaseFirstApp -p 5003:8080 $(CR_SERVER)/firstapp:v1.0.$(tag)\n" > tempServerScript.sh
             sudo tempServerScript.sh
           readyTimeout: '20000'
-
