@@ -1,4 +1,5 @@
 # Starter pipeline
+
 # Start with a minimal pipeline that you can customize to build and deploy your code.
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
@@ -24,8 +25,6 @@ stages:
   jobs:
   - job: B1J1
     displayName: B1J1 Display Name
-    pool:
-      vmImage: $(vmImageName)
     steps:
     - script: |
         ls
@@ -37,4 +36,16 @@ stages:
     - script: |
         echo "hi"
         ls
+
+- stage: Install
+  displayName: Tryna install docker
+  jobs:
+    - job: I1J1
+      displayName: Install Job1
+      steps:
+      - task: DockerInstaller@0
+        inputs:
+          dockerVersion: '17.09.0-ce'
+      - script: sudo docker ps
+
 
