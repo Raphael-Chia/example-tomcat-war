@@ -49,12 +49,16 @@ stages:
           sudo docker push $(CR_SERVER)/firstapp:v1.0.$(tag)
           sudo docker images
       - task: SSH@0
+      variables:
+        temppwfilename: 'tempPW.txt'
         inputs:
           sshEndpoint: 'ubuntuPrivateTesting'
           runOptions: 'commands'
           commands: |
             echo "Running login.."
-            sudo docker login -u $(CR_USERNAME) -p $(CR_PASSWORD) $(CR_SERVER)
+            echo "$(CR_PASSWORD)" > $(temppwfilename)
+            
+            sudo cat $(temppwfilename) | docker login -u $(CR_USERNAME) --password-stdin $(CR_SERVER)
             echo "Running Pull.."
             sudo docker pull $(CR_SERVER)/firstapp:v1.0.$(tag)
             echo "Running run..""
