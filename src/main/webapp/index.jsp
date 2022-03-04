@@ -1,7 +1,7 @@
 <html>
 
 <body>
-<h2>Hello World from Distelli!</h2>
-<p>You have successfully deployed the example-tomcat-war repository. Good Job!</p>
+<h1>Hello World from my own azure project!</h2>
+<p>It was a success!</p>
 </body>
 </html>
