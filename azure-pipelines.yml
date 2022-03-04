@@ -13,8 +13,8 @@ variables:
   imageRepository: 'rctomcatwar'
   containerRegistry: 'sampleproj.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  # tag: '$(Build.BuildId)'
-  tag: 31
+  tag: '$(Build.BuildId)'
+  # tag: 31
 
 
   # Agent VM image name
