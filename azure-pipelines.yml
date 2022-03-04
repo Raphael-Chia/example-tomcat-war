@@ -17,30 +17,24 @@ variables:
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
-pool:
-  vmImage: ubuntu-latest
-
 
 stages:
 - stage: Build
   displayName: Build and push stage
   jobs:
-  - job: Build
-    displayName: Build
+  - job: B1J1
+    displayName: B1J1 Display Name
     pool:
       vmImage: $(vmImageName)
     steps:
-    - task: Docker@2
-      displayName: Build and push an image to container registry
-      inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        containerRegistry: $(dockerRegistryServiceConnection)
-        tags: |
-          $(tag)
     - script: |
         ls
         echo "hi"
         whoami
+  - job: B1J2
+    displayName: B1J2 display name
+    steps:
+    - script: |
+        echo "hi"
+        ls
 
