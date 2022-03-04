@@ -37,9 +37,7 @@ stages:
         inputs:
           sshEndpoint: 'ubuntuPrivateTesting'
           runOptions: 'commands'
-          inline: |
-            echo -e "sudo docker login -u $(CR_USERNAME) -p $(CR_PASSWORD) $(CR_SERVER)\n \
-            sudo docker pull $(CR_SERVER)/firstapp:v1.0.$(tag)\n \
-            sudo docker run -d --name releaseFirstApp -p 5003:8080 $(CR_SERVER)/firstapp:v1.0.$(tag)\n" > tempServerScript.sh
+          commands: |
+            echo -e "sudo docker login -u $(CR_USERNAME) -p $(CR_PASSWORD) $(CR_SERVER)\nsudo docker pull $(CR_SERVER)/firstapp:v1.0.$(tag)\nsudo docker run -d --name releaseFirstApp -p 5003:8080 $(CR_SERVER)/firstapp:v1.0.$(tag)\n" > tempServerScript.sh
             sudo tempServerScript.sh
           readyTimeout: '20000'
