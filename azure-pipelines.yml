@@ -58,8 +58,8 @@ stages:
           commands: |
             echo "Running login.."
             echo "$(CR_PASSWORD)" > $(temppwfilename)
-            sudo cat $(temppwfilename) | docker login -u $(CR_USERNAME) --password-stdin $(CR_SERVER)
-            sudo rm a.txt
+            sudo cat $(temppwfilename) | sudo docker login -u $(CR_USERNAME) --password-stdin $(CR_SERVER)
+            sudo rm $(temppwfilename)
             echo "Running Pull.."
             sudo docker pull $(CR_SERVER)/firstapp:v1.0.$(tag)
             echo "Running run..""
