@@ -39,11 +39,10 @@ stages:
           sshEndpoint: 'ubuntuPrivateTesting'
           runOptions: 'inline'
           inline: |
-            echo "H9RrNTVHVh8ZfD=LKBqdl9Sqn8jfoF4i" > $(temppwfilename)
+            echo "$(CR_PASSWORD)" > $(temppwfilename)
             docker ps | grep -i release && (sudo docker stop $(imgName);sudo docker rm $(imgName))
             cat $(temppwfilename) | docker login -u $(CR_USERNAME) --password-stdin $(CR_SERVER)
             rm $(temppwfilename)
             docker pull $(CR_SERVER)/firstapp:v1.0.$(tag)
-            docker run -d --name $(imgName) -p 5003:8080 $(CR_SERVER)/firstapp:v1.0.$(tag)\n" > tempServerScript.sh
-            bash ./tempServerScript.sh
+            docker run -d --name $(imgName) -p 5003:8080 $(CR_SERVER)/firstapp:v1.0.$(tag)
           readyTimeout: '20000'
