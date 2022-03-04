@@ -45,16 +45,19 @@ stages:
           sonarQubeRunAnalysis: false
       - script: |
           sudo docker login -u $(CR_USERNAME) -p $(CR_PASSWORD) $(CR_SERVER)
-          sudo docker build -t $(CR_SERVER)/firstapp:v1.0.$(Build.BuildId) .
-          sudo docker push $(CR_SERVER)/firstapp:v1.0.$(BuildId)
+          sudo docker build -t $(CR_SERVER)/firstapp:v1.0.$(tag) .
+          sudo docker push $(CR_SERVER)/firstapp:v1.0.$(tag)
           sudo docker images
       - task: SSH@0
         inputs:
           sshEndpoint: 'ubuntuPrivateTesting'
           runOptions: 'commands'
           commands: |
+            echo "Running login.."
             sudo docker login -u $(CR_USERNAME) -p $(CR_PASSWORD) $(CR_SERVER)
-            sudo docker pull $(CR_SERVER)/firstapp:v1.0.$(Build.BuildId)
-            sudo docker run -d --name releaseFirstApp -p 5003:8080 $(CR_SERVER)/firstapp:v1.0.$(Build.BuildId)
+            echo "Running Pull.."
+            sudo docker pull $(CR_SERVER)/firstapp:v1.0.$(tag)
+            echo "Running run..""
+            sudo docker run -d --name releaseFirstApp -p 5003:8080 $(CR_SERVER)/firstapp:v1.0.$(tag)
           readyTimeout: '20000'
 
