@@ -13,8 +13,8 @@ variables:
   imageRepository: 'rctomcatwar'
   containerRegistry: 'sampleproj.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  # tag: '$(Build.BuildId)'
-  tag: 41
+  tag: '$(Build.BuildId)'
+  # tag: 41
 
 
   # Agent VM image name
@@ -34,7 +34,26 @@ stages:
     - job: I1J1
       displayName: Install Job1
       steps:
-    
+      - task: DockerInstaller@0
+        inputs:
+          dockerVersion: '17.09.0-ce'
+      - script: |
+          sudo docker images
+      - task: Maven@3
+        inputs:
+          mavenPomFile: 'pom.xml'
+          publishJUnitResults: false
+          javaHomeOption: 'JDKVersion'
+          mavenVersionOption: 'Default'
+          mavenAuthenticateFeed: false
+          effectivePomSkip: false
+          sonarQubeRunAnalysis: false
+      - script: |
+          cat Dockerfile
+          sudo docker login -u $(CR_USERNAME) -p $(CR_PASSWORD) $(CR_SERVER)
+          sudo docker build -t $(CR_SERVER)/firstapp:v1.0.$(tag) .
+          sudo docker push $(CR_SERVER)/firstapp:v1.0.$(tag)
+          sudo docker images
       - task: SSH@0
         inputs:
           sshEndpoint: 'ubuntuPrivateTesting'
