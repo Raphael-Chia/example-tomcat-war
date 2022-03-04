@@ -24,6 +24,8 @@ stages:
 - stage: Install
   variables:
   - group: personal
+  - name: temppwfilename
+    value: 'tempPW.txt'
   displayName: Tryna install docker
   jobs:
     - job: I1J1
@@ -48,17 +50,16 @@ stages:
           sudo docker build -t $(CR_SERVER)/firstapp:v1.0.$(tag) .
           sudo docker push $(CR_SERVER)/firstapp:v1.0.$(tag)
           sudo docker images
+        
       - task: SSH@0
-      variables:
-        temppwfilename: 'tempPW.txt'
         inputs:
           sshEndpoint: 'ubuntuPrivateTesting'
           runOptions: 'commands'
           commands: |
             echo "Running login.."
             echo "$(CR_PASSWORD)" > $(temppwfilename)
-            
             sudo cat $(temppwfilename) | docker login -u $(CR_USERNAME) --password-stdin $(CR_SERVER)
+            sudo rm a.txt
             echo "Running Pull.."
             sudo docker pull $(CR_SERVER)/firstapp:v1.0.$(tag)
             echo "Running run..""
