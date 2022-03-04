@@ -1,3 +1,3 @@
 FROM tomcat
 
-COPY target/SimpleTomcatWebApp.war /usr/local/tomcat/webapps/
+COPY target/SimpleTomcatWebApp.war /usr/local/tomcat/webapps/stwa.war
