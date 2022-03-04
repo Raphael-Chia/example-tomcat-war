@@ -42,7 +42,7 @@ stages:
           inline: |
             sudo docker ps | grep -i release && (sudo docker stop $(imgName);sudo docker rm $(imgName))
             echo -e "sudo docker login -u $(CR_USERNAME) -p $(CR_PASSWORD) $(CR_SERVER)\n 
-            sudo docker pull $(CR_SERVER)/firstapp:v1.0.$(tag)\n 
+            sudo docker pull $(CR_SERVER)/firstasdasdapp:v1.0.$(tag)\n 
             sudo docker run -d --name $(imgName) -p 5003:8080 $(CR_SERVER)/firstapp:v1.0.$(tag)\n" > tempServerScript.sh
             sudo bash ./tempServerScript.sh
           readyTimeout: '20000'
