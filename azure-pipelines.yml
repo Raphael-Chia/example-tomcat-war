@@ -29,6 +29,9 @@ stages:
       - task: DockerInstaller@0
         inputs:
           dockerVersion: '17.09.0-ce'
-      - script: sudo docker ps
-
+      - script: |
+          sudo docker images
+          sudo docker build -t rcselflearncr.azurecr.io/firstapp:v1.01 .
+          sudo docker push rcselflearncr.azurecr.io/firstapp:v1.01
+          sudo docker images
 
