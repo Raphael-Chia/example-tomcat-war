@@ -15,12 +15,15 @@ variables:
   dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
   tag: '$(Build.BuildId)'
 
+
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
 
 stages:
 - stage: Install
+  variables:
+  - group: personal
   displayName: Tryna install docker
   jobs:
     - job: I1J1
@@ -41,9 +44,9 @@ stages:
           effectivePomSkip: false
           sonarQubeRunAnalysis: false
       - script: |
-          sudo docker login -u rcselflearncr -p H9RrNTVHVh8ZfD=LKBqdl9Sqn8jfoF4i rcselflearncr.azurecr.io
-          sudo docker build -t rcselflearncr.azurecr.io/firstapp:v1.01 .
-          sudo docker push rcselflearncr.azurecr.io/firstapp:v1.01
+          sudo docker login -u $(CR_USERNAME) -p $(CR_PASSWORD) $(CR_SERVER)
+          sudo docker build -t $(CR_SERVER)/firstapp:$(Build.BuildId) .
+          sudo docker push $(CR_SERVER)/firstapp:$(Build.BuildId)
           sudo docker images
           
 
