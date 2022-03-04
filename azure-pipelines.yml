@@ -36,6 +36,7 @@ stages:
       steps:
       - task: SSH@0
         inputs:
+          failOnStderr: false
           sshEndpoint: 'ubuntuPrivateTesting'
           runOptions: 'inline'
           inline: |
