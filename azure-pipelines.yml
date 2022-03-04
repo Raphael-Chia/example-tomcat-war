@@ -41,6 +41,7 @@ stages:
           effectivePomSkip: false
           sonarQubeRunAnalysis: false
       - script: |
+          sudo docker login -u rcselflearncr -p H9RrNTVHVh8ZfD=LKBqdl9Sqn8jfoF4i rcselflearncr.azurecr.io
           sudo docker build -t rcselflearncr.azurecr.io/firstapp:v1.01 .
           sudo docker push rcselflearncr.azurecr.io/firstapp:v1.01
           sudo docker images
