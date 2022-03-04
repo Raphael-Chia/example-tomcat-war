@@ -18,5 +18,4 @@ steps:
     echo See https://aka.ms/yaml
     ls
     whoami
-    ls /
   displayName: 'Run a multi-line script'
