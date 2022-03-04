@@ -20,23 +20,6 @@ variables:
 
 
 stages:
-- stage: Build
-  displayName: Build and push stage
-  jobs:
-  - job: B1J1
-    displayName: B1J1 Display Name
-    steps:
-    - script: |
-        ls
-        echo "hi"
-        whoami
-  - job: B1J2
-    displayName: B1J2 display name
-    steps:
-    - script: |
-        echo "hi"
-        ls
-
 - stage: Install
   displayName: Tryna install docker
   jobs:
