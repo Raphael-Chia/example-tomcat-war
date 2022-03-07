@@ -35,4 +35,4 @@ stages:
       displayName: Install Job1
       steps:
       - script: |
-          az login -u raphael.chia@ncs.com.sg -p 3Eztormb
+          az login 
