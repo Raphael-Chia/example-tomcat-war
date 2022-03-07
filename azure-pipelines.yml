@@ -35,5 +35,5 @@ stages:
       displayName: Install Job1
       steps:
       - script: |
-          az acr 
-          az acr login 
+          az acr list --resource-group SelfLearning
+          az acr login -n rcselflearncr
