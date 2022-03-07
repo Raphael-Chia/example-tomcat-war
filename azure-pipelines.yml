@@ -34,36 +34,6 @@ stages:
     - job: I1J1
       displayName: Install Job1
       steps:
-      - task: DockerInstaller@0
-        inputs:
-          dockerVersion: '17.09.0-ce'
       - script: |
-          sudo docker images
-      - task: Maven@3
-        inputs:
-          mavenPomFile: 'pom.xml'
-          publishJUnitResults: false
-          javaHomeOption: 'JDKVersion'
-          mavenVersionOption: 'Default'
-          mavenAuthenticateFeed: false
-          effectivePomSkip: false
-          sonarQubeRunAnalysis: false
-      - script: |
-          cat Dockerfile
-          sudo docker login -u $(CR_USERNAME) -p $(CR_PASSWORD) $(CR_SERVER)
-          sudo docker build -t $(CR_SERVER)/firstapp:v1.0.$(tag) .
-          sudo docker push $(CR_SERVER)/firstapp:v1.0.$(tag)
-          sudo docker images
-      - task: SSH@0
-        inputs:
-          failOnStderr: false
-          sshEndpoint: 'ubuntuPrivateTesting'
-          runOptions: 'inline'
-          inline: |
-            echo "$(CR_PASSWORD)" > $(temppwfilename)
-            docker ps | grep -i release && (sudo docker stop $(imgName);sudo docker rm $(imgName))
-            cat $(temppwfilename) | docker login -u $(CR_USERNAME) --password-stdin $(CR_SERVER)
-            rm $(temppwfilename)
-            docker pull $(CR_SERVER)/firstapp:v1.0.$(tag)
-            docker run -d --name $(imgName) -p 5003:8080 $(CR_SERVER)/firstapp:v1.0.$(tag)
-          readyTimeout: '20000'
+          az acr 
+          az acr login 
