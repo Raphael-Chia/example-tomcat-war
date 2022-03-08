@@ -31,6 +31,11 @@ stages:
     value: 'releaseFirstApp'
   displayName: Tryna install docker
   jobs:
+    - deployment: Approval
+      environment: ApprovalQA
+      timeoutInMinutes: 5
+      displayName: 'Awaiting approval'
+      
     - job: I1J1
       displayName: Install Job1
       steps:
