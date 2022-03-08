@@ -6,7 +6,7 @@
 
 trigger:
 - master
-- hotfix
+- hotfix_main
 
 variables:
   # Container registry service connection established during pipeline creation
@@ -38,7 +38,7 @@ stages:
       # This job will only run if its coming from hotfix branch
     - job: 'HotfixBranchTest'
       displayName: Running test on hotfix pushes
-      condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix/')
+      condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix_main')
       steps:
       - script: |
           echo 'All is good. Running for branch: $(Build.SourceBranch)'
