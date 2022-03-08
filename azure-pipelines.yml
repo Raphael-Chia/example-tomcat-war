@@ -27,10 +27,20 @@ stages:
     value: 'releaseFirstApp'
   displayName: trying to build and push and pull and deploy
   jobs:
+      # This deployment using the approval environment act as a guard for this entire stage. Even if 
+      # i put a job above this deployment, it wont run until it gets approval.
     - deployment: Approval
       environment: ApprovalQA
       timeoutInMinutes: 5
       displayName: 'Awaiting approval'
+      
+      # This job will only run if its coming from hotfix branch
+    - job: 'HotfixBranchTest'
+      displayName: Running test on hotfix pushes
+      condition: startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix/')
+      steps:
+      - script: |
+          echo 'All is good. Running for branch: $(Build.SourceBranch)'
       
     - job: I1J1
       displayName: Install Job1
