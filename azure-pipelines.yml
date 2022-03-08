@@ -25,20 +25,16 @@ stages:
     value: 'tempPW.txt'
   - name: imgName
     value: 'releaseFirstApp'
-  displayName: Tryna install docker
+  displayName: trying to build and push and pull and deploy
   jobs:
-    - job: tsb
-      displayName: 'Remove after'
-      steps:
-        - script: echo $(Build.SourceBranch)
-
-    # - deployment: Approval
-    #   environment: ApprovalQA
-    #   timeoutInMinutes: 5
-    #   displayName: 'Awaiting approval'
+    - deployment: Approval
+      environment: ApprovalQA
+      timeoutInMinutes: 5
+      displayName: 'Awaiting approval'
       
     - job: I1J1
       displayName: Install Job1
+      condition: eq(variables['Build.SourceBranch'], 'refs/heads/main')
       steps:
       - task: DockerInstaller@0
         inputs:
