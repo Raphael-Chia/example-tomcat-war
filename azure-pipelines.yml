@@ -6,7 +6,7 @@
 
 trigger:
 - master
-- hotfix_maikekee
+- hotfix/*
 
 variables:
   # Container registry service connection established during pipeline creation
