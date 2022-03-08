@@ -7,6 +7,30 @@
   <version>1.0</version>
   <name>SimpleTomcatWebApp Maven Webapp</name>
   <url>http://maven.apache.org</url>
+  <repositories>
+    <repository>
+      <id>MyFeed</id>
+      <url>https://pkgs.dev.azure.com/raphaelchia/FirstProj/_packaging/MyFeed/maven/v1</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+  <distributionManagement>
+    <repository>
+      <id>MyFeed</id>
+      <url>https://pkgs.dev.azure.com/raphaelchia/FirstProj/_packaging/MyFeed/maven/v1</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </distributionManagement>
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
