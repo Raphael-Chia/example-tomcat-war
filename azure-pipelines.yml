@@ -9,12 +9,8 @@ trigger:
 
 variables:
   # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: '3b91c73d-8c04-4ecc-9575-ea97006c8c21'
-  imageRepository: 'rctomcatwar'
-  containerRegistry: 'sampleproj.azurecr.io'
-  dockerfilePath: '$(Build.SourcesDirectory)/Dockerfile'
-  # tag: '$(Build.BuildId)'
-  tag: 41
+  tag: '$(Build.BuildId)'
+  # tag: 41
 
 
   # Agent VM image name
@@ -31,6 +27,11 @@ stages:
     value: 'releaseFirstApp'
   displayName: Tryna install docker
   jobs:
+    - job: tsb
+      displayName: 'Remove after'
+      steps:
+        - script: echo $(Build.SourceBranch)
+        
     - deployment: Approval
       environment: ApprovalQA
       timeoutInMinutes: 5
