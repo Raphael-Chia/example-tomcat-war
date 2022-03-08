@@ -67,3 +67,8 @@ stages:
             docker pull $(CR_SERVER)/firstapp:v1.0.$(tag)
             docker run -d --name $(imgName) -p 5003:8080 $(CR_SERVER)/firstapp:v1.0.$(tag)
           readyTimeout: '20000'
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: '$(Pipeline.Workspace)'
+          artifact: 'aSampleApp'
+          publishLocation: 'pipeline'
